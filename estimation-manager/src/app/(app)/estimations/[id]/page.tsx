@@ -10,7 +10,7 @@ import { DimensionChart } from "@/components/results/dimension-chart";
 import { CalculationBreakdown } from "@/components/results/calculation-breakdown";
 import { DuplicateEstimationButton } from "@/components/duplicate-estimation-button";
 import { cn } from "@/lib/utils";
-import { ArrowLeft, GitCompare } from "lucide-react";
+import { ArrowLeft, GitCompare, FileDown } from "lucide-react";
 
 const STATUS_VARIANTS: Record<string, "default" | "secondary" | "outline"> = {
   draft: "secondary", final: "default", archived: "outline",
@@ -48,6 +48,12 @@ export default async function EstimationDetailPage({ params }: { params: Promise
         </div>
         <div className="flex gap-2">
           <DuplicateEstimationButton id={estimation.id} />
+          <Link href={`/api/estimations/${id}/export?format=xlsx`} className={cn(buttonVariants({ variant: "outline", size: "sm" }))} target="_blank">
+            <FileDown className="h-4 w-4 mr-2" />XLSX
+          </Link>
+          <Link href={`/api/estimations/${id}/export?format=pdf`} className={cn(buttonVariants({ variant: "outline", size: "sm" }))} target="_blank">
+            <FileDown className="h-4 w-4 mr-2" />PDF
+          </Link>
           <Link href={`/estimations/${id}/compare`} className={cn(buttonVariants({ variant: "outline", size: "sm" }))}>
             <GitCompare className="h-4 w-4 mr-2" />
             Vergleich
